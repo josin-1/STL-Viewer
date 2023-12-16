@@ -14,4 +14,4 @@ model = model_load("file.stl");
 <br />
 
 ## Known Bugs:
-- [ ] The window close button (x) doesnt work!
+- [x] The window close button (x) doesnt work! ***Solved***
