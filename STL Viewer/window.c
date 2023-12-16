@@ -67,8 +67,11 @@ Window* window_init(const uint32_t windowWidth, const uint32_t windowHeight, cha
 uint8_t window_quit(Window* window, EventList node) {
 	if (window->mainWindow) {
 		for (; node != NULL; node = node->next) {
-			printf("%u\t%u\n", node->event.window.windowID, node->event.window.event);
-			if(node->event.window.windowID == window->windowID && node->event.window.event == SDL_WINDOWEVENT_CLOSE) return 1;
+			if (node->event.type == SDL_WINDOWEVENT) {
+				if (node->event.window.windowID == window->windowID && node->event.window.event == SDL_WINDOWEVENT_CLOSE) return 1;
+			}
+			// if only one window is open, there is no SDL_WINDOWEVENT_CLOSE, but a SDL_QUIT event
+			if (node->event.type == SDL_QUIT) return 1;
 		}
 	}
 	return 0;
